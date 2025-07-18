@@ -3,11 +3,11 @@
 https://img.shields.io/badge/status-em%20desenvolvimento-yellow">
 
 
-https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white">
-https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
-https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
-https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
-https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+<https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white">
+<https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+<https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+<https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+<https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 
 📄 Sobre o Projeto
 In-N-Out é um sistema de registro de ponto para funcionários, desenvolvido para facilitar o controle de horas trabalhadas. O projeto foi criado como parte do curso de PHP da Cod3r, aplicando conceitos de desenvolvimento web back-end e front-end em uma aplicação prática e funcional.
