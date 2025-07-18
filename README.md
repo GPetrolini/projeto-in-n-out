@@ -50,18 +50,9 @@ Siga os passos abaixo para executar o projeto em seu ambiente local:
 -   Servidor web local (XAMPP, WAMP, Laragon, etc.)
 -   Servidor de banco de dados MySQL
 
-**2. Clone o Repositório:**
-
-```bash
-git clone [https://github.com/seu-usuario/projeto-in-n-out.git](https://github.com/seu-usuario/projeto-in-n-out.git)
-
 ---
+### **Parte 2: Autor**
 
-### **Parte 3: Autor**
-
-Finalmente, logo abaixo da Parte 2, copie e cole este último bloco de código:
-
-```markdown
 ## 👨‍💻 Autor
 
 <p>
