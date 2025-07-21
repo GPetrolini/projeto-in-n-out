@@ -1,7 +1,19 @@
 <?php
 
 require_once(dirname(__FILE__, 2) . '/src/config/config.php');
-require_once(dirname(__FILE__, 2) . '/src/models/User.php');
+//require_once(VIEW_PATH . '/login.php');
 
-$user = new User(['name' => 'Gustavo', 'email' => 'gustavo@email.com']);
-echo $user->getSelect();
+require_once(MODEL_PATH . '/Login.php');
+
+$login = new Login([
+    'email' => 'admin@coder.com.br',
+    'password' => 'a',
+]);
+
+try {
+    $login->checkLogin();
+    echo 'Deu certo';
+
+} catch(exception $e) {
+    echo 'Problema no login';
+}

@@ -30,19 +30,11 @@ class Model {
         $this->values[$key] = $value;
     }
 
-    public static function getAll($filters = [], $columns = '*')
+    public static function getOne($filters = [], $columns = '*')
     {
-        $objects = [];
-        $result = static::getResultSetFromSelect($filters, $columns = '*');
-        if($result)
-        {
-            $class = get_called_class();
-            while($row = $result->fetch_assoc())
-            {
-                array_push($objects, new $class($row));
-            }
-        }
-        return $objects;
+        $class = get_called_class();
+        $result = static::getResultSetFromSelect($filters, $columns);
+        return $result ? new $class($result->fetch_assoc()) : null;
     }
 
     public static function getResultSetFromSelect($filters = [], $columns = '*')
