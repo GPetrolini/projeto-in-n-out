@@ -7,8 +7,8 @@ if(count($_POST) > 0)
 {
     $login = new Login($_POST);
     try {
-        $login->checkLogin();
-        echo "Usuário {$user->name} logado";
+        $user = $login->checkLogin();
+        header("Location: day_records.php");
     } catch(AppException $e) {
         $exception = $e;
     }
