@@ -13,5 +13,5 @@ $userWorkingHours = WorkingHours::loadFromUserAndDate($user->id, date('Y-m-d'));
 loadTemplateView('day_records',
     [
         'today' => $today,
-        'records' => $records,
+        'records' => $records
     ]);
