@@ -38,6 +38,18 @@ class WorkingHours extends Model
         return null;
     }
 
+    public function getActiveClock()
+    {
+        $nextTime = $this->getNextTime();
+        if($nextTime === 'time 1'  || $nextTime === 'time 3') {
+            return 'exitTime';
+        } elseif ($nextTime === 'time 2'  || $nextTime === 'time 4') {
+            return 'WorkedInterval';
+        } else {
+            return null;
+        }
+    }
+
     public function innout($time)
     {
         $timeColumn = $this->getNextTime();
