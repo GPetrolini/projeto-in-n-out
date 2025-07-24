@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li class="nav-list">
-                <a href="day_records.php" class="link">
+                <a href="monthly_report.php" class="link">
                     <i class="icofont-ui-calendar mr-2"></i>
                     Relatório Mensal
                 </a>
