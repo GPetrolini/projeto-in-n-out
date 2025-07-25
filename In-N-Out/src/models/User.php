@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 class User extends Model
 {
     protected static $tableName = 'users';
@@ -12,18 +14,21 @@ class User extends Model
         'is_admin'
     ];
 
-    public static function getActiveUsersCount() {
+    public static function getActiveUsersCount()
+    {
         return static::getCount(['raw' => 'end_date IS NULL']);
     }
 
-    public function insert() {
+    public function insert()
+    {
         $this->validate();
         $this->is_admin = $this->is_admin ? 1 : 0;
         if(!$this->end_date) $this->end_date = null;
         return parent::insert();
     }
 
-    public function update() {
+    public function update()
+    {
         $this->validate();
         $this->is_admin = $this->is_admin ? 1 : 0;
         if(!$this->end_date) $this->end_date = null;
@@ -31,7 +36,8 @@ class User extends Model
         return parent::update();
     }
 
-    private function validate() {
+    private function validate()
+    {
         $errors = [];
 
         if(!$this->name) {

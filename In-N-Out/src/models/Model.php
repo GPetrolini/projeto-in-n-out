@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class Model {
     protected static $columns = [];
     protected static $tableName = '';
@@ -13,18 +15,17 @@ class Model {
     public function loadFromArray($arr, $sanitize = true)
     {
         if($arr) {
-            $conn = Database::getConnection();
-            foreach ($arr as $key => $value)
-            {
+            // $conn = Database::getConnection();
+            foreach($arr as $key => $value) {
                 $cleanValue = $value;
                 if($sanitize && isset($cleanValue)) {
                     $cleanValue = strip_tags(trim($cleanValue));
-                    $cleanValue = htmlentities($cleanValue, ENT_QUOTES);
-                    $cleanValue = mysqli_real_escape_string($conn, $cleanValue);
+                    $cleanValue = htmlentities($cleanValue, ENT_NOQUOTES);
+                    // $cleanValue = mysqli_real_escape_string($conn, $cleanValue);
                 }
                 $this->$key = $cleanValue;
             }
-            $conn->close();
+            // $conn->close();
         }
     }
 
@@ -50,12 +51,26 @@ class Model {
         return $result ? new $class($result->fetch_assoc()) : null;
     }
 
+    public static function get($filters = [], $columns = '*')
+    {
+        $objects = [];
+        $result = static::getResultSetFromSelect($filters, $columns);
+        if($result) {
+            $class = get_called_class();
+            while($row = $result->fetch_assoc()) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
+
     public static function getResultSetFromSelect($filters = [], $columns = '*')
     {
-        $sql = 'SELECT ${columns} FROM ' . static::$tableName . static::getFilters($filters);
+        $sql = "SELECT ${columns} FROM "
+            . static::$tableName
+            . static::getFilters($filters);
         $result = Database::getResultFromQuery($sql);
-        if($result->num_rows === 0)
-        {
+        if($result->num_rows === 0) {
             return null;
         } else {
             return $result;
@@ -64,7 +79,8 @@ class Model {
 
     public function insert()
     {
-        $sql = "INSERT INTO " . static::$tableName." (" . implode(",", static::$columns) . ") VALUES (";
+        $sql = "INSERT INTO " . static::$tableName . " ("
+            . implode(",", static::$columns) . ") VALUES (";
         foreach(static::$columns as $col) {
             $sql .= static::getFormatedValue($this->$col) . ",";
         }
@@ -73,11 +89,11 @@ class Model {
         $this->id = $id;
     }
 
-    public function updade()
+    public function update()
     {
         $sql = "UPDATE " . static::$tableName . " SET ";
-        $foreach(static::$columns as $col) {
-            $sql .= "${col} = " . static::getFormatedValue($this->$col) . ",";
+        foreach(static::$columns as $col) {
+            $sql .= " ${col} = " . static::getFormatedValue($this->$col) . ",";
         }
         $sql[strlen($sql) - 1] = ' ';
         $sql .= "WHERE id = {$this->id}";
@@ -86,7 +102,8 @@ class Model {
 
     public static function getCount($filters = [])
     {
-        $result = static::getResultSetFromSelect($filters, 'COUNT(*) as count');
+        $result = static::getResultSetFromSelect(
+            $filters, 'count(*) as count');
         return $result->fetch_assoc()['count'];
     }
 
@@ -104,15 +121,13 @@ class Model {
     private static function getFilters($filters)
     {
         $sql = '';
-        if(count($filters) > 0)
-        {
+        if(count($filters) > 0) {
             $sql .= " WHERE 1 = 1";
-            foreach ($filters as $column => $value)
-            {
+            foreach($filters as $column => $value) {
                 if($column == 'raw') {
                     $sql .= " AND {$value}";
                 } else {
-                    $sql .= " AND ${column} =" . static::getFormatedValue($value);
+                    $sql .= " AND ${column} = " . static::getFormatedValue($value);
                 }
             }
         }
@@ -121,11 +136,9 @@ class Model {
 
     private static function getFormatedValue($value)
     {
-        if(is_null($value))
-        {
+        if(is_null($value)) {
             return "null";
-        } elseif(gettype($value) === 'string')
-        {
+        } elseif(gettype($value) === 'string') {
             return "'${value}'";
         } else {
             return $value;
