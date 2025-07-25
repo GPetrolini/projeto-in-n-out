@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 function getDateAsDateTime($date)
 {
     return is_string($date) ? new DateTime($date) : $date;
@@ -27,7 +29,7 @@ function getNextDay($date)
 
 function sumIntervals($interval1, $interval2)
 {
-    $date = new Datetime('00:00:00');
+    $date = new DateTime('00:00:00');
     $date->add($interval1);
     $date->add($interval2);
     return (new DateTime('00:00:00'))->diff($date);
@@ -35,15 +37,15 @@ function sumIntervals($interval1, $interval2)
 
 function subtractIntervals($interval1, $interval2)
 {
-    $date = new Datetime('00:00:00');
+    $date = new DateTime('00:00:00');
     $date->add($interval1);
     $date->sub($interval2);
     return (new DateTime('00:00:00'))->diff($date);
 }
 
-function getDateFromIntervall($interval)
+function getDateFromInterval($interval)
 {
-    return new DateTimeImmutable($interval->format("%H:%i:%s"));
+    return new DateTimeImmutable($interval->format('%H:%i:%s'));
 }
 
 function getDateFromString($str)
@@ -53,26 +55,26 @@ function getDateFromString($str)
 
 function getFirstDayOfMonth($date)
 {
-    $dateTime = getDateAsDateTime($date)->getTimestamp();
+    $time = getDateAsDateTime($date)->getTimestamp();
     return new DateTime(date('Y-m-1', $time));
 }
 
 function getLastDayOfMonth($date)
 {
-    $dateTime = getDateAsDateTime($date)->getTimestamp();
+    $time = getDateAsDateTime($date)->getTimestamp();
     return new DateTime(date('Y-m-t', $time));
 }
 
 function getSecondsFromDateInterval($interval)
 {
-    $d1 = new DateTimeImmutable;
+    $d1 = new DateTimeImmutable();
     $d2 = $d1->add($interval);
     return $d2->getTimestamp() - $d1->getTimestamp();
 }
 
 function isPastWorkday($date)
 {
-    return !isWeekend($date) && isBefore($date, new DateTime);
+    return !isWeekend($date) && isBefore($date, new DateTime());
 }
 
 function getTimeStringFromSeconds($seconds)

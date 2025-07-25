@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 function loadModel($modelName)
 {
     require_once(MODEL_PATH . "/{$modelName}.php");
@@ -7,8 +9,9 @@ function loadModel($modelName)
 
 function loadView($viewName, $params = array())
 {
+
     if(count($params) > 0) {
-        foreach ($params as $key => $value) {
+        foreach($params as $key => $value) {
             if(strlen($key) > 0) {
                 ${$key} = $value;
             }
@@ -20,8 +23,9 @@ function loadView($viewName, $params = array())
 
 function loadTemplateView($viewName, $params = array())
 {
+
     if(count($params) > 0) {
-        foreach ($params as $key => $value) {
+        foreach($params as $key => $value) {
             if(strlen($key) > 0) {
                 ${$key} = $value;
             }
@@ -30,8 +34,8 @@ function loadTemplateView($viewName, $params = array())
 
     $user = $_SESSION['user'];
     $workingHours = WorkingHours::loadFromUserAndDate($user->id, date('Y-m-d'));
-    $workedInteval = $workingHours->getWorkedInterval()->format('%H:%I:%S');
-    $exitTime = $workingHours->getExitTime->format('%H:%i:%s');
+    $workedInterval = $workingHours->getWorkedInterval()->format('%H:%I:%S');
+    $exitTime = $workingHours->getExitTime()->format('H:i:s');
     $activeClock = $workingHours->getActiveClock();
 
     require_once(TEMPLATE_PATH . "/header.php");
@@ -42,5 +46,5 @@ function loadTemplateView($viewName, $params = array())
 
 function renderTitle($title, $subtitle, $icon = null)
 {
-    require_once (TEMPLATE_PATH . "/title.php");
+    require_once(TEMPLATE_PATH . "/title.php");
 }
