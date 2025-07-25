@@ -3,6 +3,18 @@
 session_start();
 requireValidSession();
 
+if(isset($_GET['delete'])){
+    try {
+        User::deleteById($_GET['delete']);
+        addSucessMsg('Usuario foi excluido com sucesso');
+    }catch(Exception $e){
+        if(stripos($e->getMessage(), 'FOREIGN KEY')){
+            addErrorMsg('Não é possível excluir o usuário com registros de ponto');
+        }
+        $exception = $e;
+    }
+}
+
 $users = User::get();
 foreach($users as $user)
 {
@@ -12,4 +24,7 @@ foreach($users as $user)
     }
 }
 
-loadTemplateView('users',['users'=>$users]);
+loadTemplateView('users',[
+    'users'=>$users,
+    'exception' => $exception
+]);
