@@ -1,10 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 loadModel('Login');
 session_start();
 $exception = null;
 
-if(count($_POST) > 0)
-{
+if(count($_POST) > 0) {
     $login = new Login($_POST);
     try {
         $user = $login->checkLogin();
@@ -15,4 +17,4 @@ if(count($_POST) > 0)
     }
 }
 
-loadView('Login', $_POST + ['exception' => $exception]);
+loadView('login', $_POST + ['exception' => $exception]);
