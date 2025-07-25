@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-requireValidSession();
+requireValidSession(true);
 
 if(isset($_GET['delete'])){
     try {

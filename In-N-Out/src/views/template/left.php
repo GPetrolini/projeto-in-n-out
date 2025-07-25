@@ -19,12 +19,14 @@
                     Relatório Gerencial
                 </a>
             </li>
+            <?php if($user->is_admin): ?>
             <li class="nav-list">
                 <a href="users.php" class="link">
                     <i class="icofont-users mr-2"></i>
                     Usuários
                 </a>
             </li>
+            <?php endif ?>
         </ul>
     </nav>
     <div class="sidebar-widgets">
