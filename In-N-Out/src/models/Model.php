@@ -1,22 +1,30 @@
 <?php
 
 class Model {
-    protected static $tableName = '';
     protected static $columns = [];
+    protected static $tableName = '';
     protected $values = [];
 
-    function __construct($arr)
+    function __construct($arr, $sanitize = true)
     {
-        $this->loadFromArray($arr);
+        $this->loadFromArray($arr, $sanitize);
     }
 
-    public function loadFromArray($arr)
+    public function loadFromArray($arr, $sanitize = true)
     {
         if($arr) {
+            $conn = Database::getConnection();
             foreach ($arr as $key => $value)
             {
-                $this->$key = $value;
+                $cleanValue = $value;
+                if($sanitize && isset($cleanValue)) {
+                    $cleanValue = strip_tags(trim($cleanValue));
+                    $cleanValue = htmlentities($cleanValue, ENT_QUOTES);
+                    $cleanValue = mysqli_real_escape_string($conn, $cleanValue);
+                }
+                $this->$key = $cleanValue;
             }
+            $conn->close();
         }
     }
 
