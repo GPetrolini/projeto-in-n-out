@@ -10,4 +10,9 @@ class User extends Model {
         'end_date',
         'id_admin',
     ];
+
+    public static function getActiveUserCount()
+    {
+        return static::getCount(['raw' => 'end_date IS NULL']);
+    }
 }
